@@ -29,16 +29,24 @@ let views;
     })
 
     console.log(obj.title + " " + obj.nfVideos + " " + obj.nfViews);
-
+    
+    let noOfVideos = obj.nfVideos.split(" ")[0];
+    noOfVideos = Number(noOfVideos);
+    
     let videoSelector = "#video-title";
     let duration = 
     "span.style-scope.ytd-thumbnail-overlay-time-status-renderer";
 
     await page.waitForSelector(videoSelector,{visible:true})
     await page.waitForSelector(duration,{visible:true});
-    let titleDurArr = await page.evaluate(getTitleNDuration,videoSelector,
-        duration);
-    console.table(titleDurArr);
+    // let titleDurArr = await page.evaluate(getTitleNDuration,videoSelector,
+    //     duration);
+    // console.table(titleDurArr);
+    await page.evaluate(function () {
+        let durationElems = document.querySelectorAll("#video-title");
+        durationElems[durationElems.length - 1].scrollIntoView(true);
+        console.log("hello");
+    });
 
 })();
 
